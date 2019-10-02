@@ -7,6 +7,8 @@ var fs = require("fs");
 var spotify = new Spotify(keys.spotify);
 var userInput = process.argv.slice(3).join(" ");
 var term = process.argv[2];
+var termsArray = ["spotify-this-song","movie-this",'do-what-it-says',"concert-this"];
+var randomSearch = termsArray[Math.floor(Math.random() * termsArray.length)];
 
 function spotifySong(userInput) {
   if (!userInput) {
@@ -79,15 +81,20 @@ function switchBoard(term, userInput) {
       spotifySong(userInput);
       break;
     case "movie-this":
+    case "movie":
       movieThis(userInput);
       break;
     case "concert-this":
+    case "bands-in-town":
       concertThis(userInput);
       break;
     case "do-what-it-says":
       readFile();
       break;
+    default:
+      console.log("LIRI doesn't know what you want to do! Try " + randomSearch + "!")
   }
 }
 
 switchBoard(term, userInput);
+
