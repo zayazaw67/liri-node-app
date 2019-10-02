@@ -72,5 +72,46 @@ else if (term == "do-what-it-says") {
   fs.readFile("random.txt", "utf8", function(error, data){
     if (error) {return console.log(error)};
     console.log(data);
-  })
+    var newData = data.split(',')
+    console.log(newData)
+    // super wet. prob not the right way to do it
+    spotify.search({ type: 'track', query: newData[1] }, function (err, data) {
+      if (err) {
+        return console.log('Error occurred: ' + err);
+      } else {
+        console.log(JSON.stringify(data.tracks.items[0].album.artists[0].name + " - " + data.tracks.items[0].name));  // logs the artist name - track
+        console.log("This song is on album: " + data.tracks.items[0].album.name)  // logs the album of the track
+        console.log("Click the link to hear a preview of the track! " + data.tracks.items[0].preview_url)  // logs the preview link of the track
+      }
+    });
+})
 }
+
+// convert ifs into functions. put into switch case to improve. gets rid of wet of do-what-it-says
+
+
+// !userInput won't work beacuse array is at index 5 for the sign. need offset. read documentation
+
+// function spotifyMe(song) {
+//   var spotify = new Spotify(keys.spotify);
+//   if (!userInput) {
+//     userInput = "the sign"
+//   }
+//   spotify.search({ type: 'track', query: userInput }, function (err, data) {
+//     if (err) {
+//       return console.log('Error occurred: ' + err);
+//     } else {
+//     console.log(data.tracks.items[5].album.artists[0].name + " - " + data.tracks.items[5].name);
+//     console.log("This song is on album: " + data.tracks.items[5].album.name);
+//     console.log("Click the link to hear a preview of the track! " + data.tracks.items[5].preview_url);
+//     }
+//   });
+// }
+
+// var fillItUp = function (data, fillData) {
+//   switch(data) {
+//     case 'spotify-this-song':
+//     spotifyMe(fillData);
+//     break;
+//   }
+// }
