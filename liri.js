@@ -47,8 +47,10 @@ else if (term == "concert-this") {
   }
 } 
 else if (term == "movie-this") {
-  if (userInput) {
-    axios.get('https://www.omdbapi.com/?t=' + userInput + '&apikey=trilogy') //+ keys.omdbkey)
+  // less WET, but unsure how to console.log for no input
+  if (!userInput) {
+    userInput = "Mr Nobody"    
+  } axios.get('https://www.omdbapi.com/?t=' + userInput + '&apikey=trilogy') //+ keys.omdbkey)
       .then(function (response) {
         console.log("Title: " + response.data.Title + "\nDate released: " + response.data.Released + "\nProduced in: " + response.data.Country + "\nLanguages: " + response.data.Language
           + "\nPlot: " + response.data.Plot + "\nActors: " + response.data.Actors);
@@ -58,16 +60,15 @@ else if (term == "movie-this") {
         console.log(error);
       })
   } 
-  else {
-    axios.get('https://www.omdbapi.com/?t=mr+nobody&apikey=trilogy')
-      .then(function (response) {
-        console.log("If you haven't watched " + response.data.Title + " then you should: http://www.imdb.com/title/tt0485947/") // omdb api does not provide an imdb link to grab from response.data
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-    }
-} 
+  // else {
+  //   axios.get('https://www.omdbapi.com/?t=mr+nobody&apikey=trilogy')
+  //     .then(function (response) {
+  //       console.log("If you haven't watched " + response.data.Title + " then you should: http://www.imdb.com/title/tt0485947/") // omdb api does not provide an imdb link to grab from response.data
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     })
+  //   } 
 else if (term == "do-what-it-says") {
   fs.readFile("random.txt", "utf8", function(error, data){
     if (error) {return console.log(error)};
